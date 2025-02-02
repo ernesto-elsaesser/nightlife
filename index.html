@@ -7,12 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 <style>
 .city {
-  width: 256px;
-  height: 16px;
-  border: 1px solid #777;
-  border-radius: 5px;
-  text-decoration: none;
-  outline: none;
+  display: block;
 }
 .fi {
   width: 20px;
@@ -21,7 +16,7 @@
 }
 </style>
 </head>
-<body style="margin: 0 auto 40px; font-size: 18px">
+<body style="margin: 40px; font-size: 18px">
 <input id="filter" type="text" placeholder="Filter" />
 <a class="city" id="1850147">Tokyo</a>
 <a class="city" id="5128581">New York</a>
@@ -37,7 +32,7 @@
 
 const cities = document.getElementsByClassName("city")
 
-cities.forEach(async (city) => {
+Array.from(cities).forEach(async (city) => {
   let res = await fetch("http://api.geonames.org/getJSON?username=cityglance&lang=en&geonameId=" + city.id)
   let data = await res.json()
   let cc = data.countryCode.toLowerCase()
