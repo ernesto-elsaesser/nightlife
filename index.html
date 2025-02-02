@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Cities</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+<style>
+.citybox {
+  width: 256px;
+  height: 16px;
+  border: 1px solid #777;
+  border-radius: 5px;
+  text-decoration: none;
+  outline: none;
+}
+.fi {
+  width: 20px;
+  height: 16px;
+  margin-right: 12px;
+}
+</style>
+</head>
+<body style="margin: 0 auto 40px; font-size: 18px">
+<input id="filter" type="text" placeholder="Filter" />
+<div id="citylist">
+<a class="citybox" id="1850147">Tokyo</a>
+<a class="citybox" id="5128581">New York</a>
+<a class="citybox" id="2643743">Lodon</a>
+</div>
+<script>
+
+const cityBoxes = document.getElementsByClassName("citybox")
+
+cityBoxes.forEach(async (box) => {
+  let res = await fetch("http://api.geonames.org/getJSON?username=cityglance&lang=en&geonameId=" + box.id)
+  let data = await res.json()
+  let cc = data.countryCode.toLowerCase()
+  let east = data.bbox.east.toString()
+  let north = data.bbox.north.toString()
+  let west = data.bbox.west.toString()
+  let south = data.bbox.south.toString()
+  box.href = "map.html?city=" + data.asciiName + "&east=" + east + "&north=" + north + "&west=" + west + "&south=" + south
+  box.innerHTML = '<span class="fi fi-' + cc + '"></span>' + data.name
+})
+
+document.getElementById("filter").addEventListener("input", function () {
+  let query = searchField.value.toLowerCase()
+  for (box of cityBoxes) {
+    if (box.innerText.startsWith(query)) {
+      box.style.display = 'block'
+    } else {
+      box.style.display = 'none'
+    }
+  }
+})
+</script>
+</body>
+</html>

@@ -1,11 +1,3 @@
-<?php
-$slug = $_GET['city'];
-$city_json = file_get_contents("cities/$slug.json");
-$info = json_decode($city_json);
-$bbox = $info['bbox'];
-$bounds = sprintf('[[%f, %f], [%f, %f]]', $bbox['east'], $bbox['north'], $bbox['west'], $bbox['south']);
-$hotspots = file_get_contents("hotspots/$slug.json");
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +11,13 @@ $hotspots = file_get_contents("hotspots/$slug.json");
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
 <script>
 
+let params = new URLSearchParams(window.location.search)
+let city = params.get('city')
+let bounds = [
+  [parseFloat(params.get('east')), parseFloat(params.get('north'))],
+  [parseFloat(params.get('west')), parseFloat(params.get('south'))],
+]
+
 mapboxgl.accessToken = "pk.eyJ1IjoiZXJuZXN0by1lbHNhZXNzZXIiLCJhIjoiY2p4YXJjYTVhMDVxcTN5cDlueHF0N3JudSJ9.KG2s_HZELVZsNLWeB0DC4Q";
 
 var mapboxMap = new mapboxgl.Map({
@@ -28,7 +27,10 @@ var mapboxMap = new mapboxgl.Map({
     dragRotate: false
 });
 
-mapboxMap.on('style.load', function () {
+mapboxMap.on('style.load', async function () {
+
+  let res = await fetch("hotspots/" + city + ".json")
+  let hotspots = await res.json()
 
   mapboxMap.addSource('hotspots', {
         'type': 'geojson',
@@ -39,7 +41,7 @@ mapboxMap.on('style.load', function () {
                 'properties': {},
                 'geometry': {
                     'type': 'MultiPoint',
-                    'coordinates': <?php echo $hotspots; ?>,
+                    'coordinates': hotspots,
                 }
             }]
         }
@@ -59,7 +61,7 @@ mapboxMap.on('style.load', function () {
       }
     }, 'road-label')
 
-  let options = mapboxMap.cameraForBounds(<?php echo $bounds; ?>)
+  let options = mapboxMap.cameraForBounds(bounds)
   options.zoom += 0.8
   mapboxMap.jumpTo(options)
   mapboxMap.resize()
