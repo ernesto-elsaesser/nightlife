@@ -33,7 +33,7 @@
 const cities = document.getElementsByClassName("city")
 
 Array.from(cities).forEach(async (city) => {
-  let res = await fetch("http://api.geonames.org/getJSON?username=cityglance&lang=en&geonameId=" + city.id)
+  let res = await fetch("https://secure.geonames.org/getJSON?username=cityglance&lang=en&geonameId=" + city.id)
   let data = await res.json()
   let cc = data.countryCode.toLowerCase()
   let east = data.bbox.east.toString()
