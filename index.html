@@ -6,7 +6,7 @@
 <title>Cities</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 <style>
-.citybox {
+.city {
   width: 256px;
   height: 16px;
   border: 1px solid #777;
@@ -23,17 +23,22 @@
 </head>
 <body style="margin: 0 auto 40px; font-size: 18px">
 <input id="filter" type="text" placeholder="Filter" />
-<div id="citylist">
-<a class="citybox" id="1850147">Tokyo</a>
-<a class="citybox" id="5128581">New York</a>
-<a class="citybox" id="2643743">Lodon</a>
-</div>
+<a class="city" id="1850147">Tokyo</a>
+<a class="city" id="5128581">New York</a>
+<a class="city" id="5368361">Los Angeles</a>
+<a class="city" id="2988507">Paris</a>
+<a class="city" id="1609350">Bangkok</a>
+<a class="city" id="1835848">Seoul</a>
+<a class="city" id="2643743">Lodon</a>
+<a class="city" id="1735161">Kuala Lumpur</a>
+<a class="city" id="1880252">Singapore</a>
+<a class="city" id="2925533">Frankfurt am Main</a>
 <script>
 
-const cityBoxes = document.getElementsByClassName("citybox")
+const cities = document.getElementsByClassName("city")
 
-cityBoxes.forEach(async (box) => {
-  let res = await fetch("http://api.geonames.org/getJSON?username=cityglance&lang=en&geonameId=" + box.id)
+cities.forEach(async (city) => {
+  let res = await fetch("http://api.geonames.org/getJSON?username=cityglance&lang=en&geonameId=" + city.id)
   let data = await res.json()
   let cc = data.countryCode.toLowerCase()
   let east = data.bbox.east.toString()
@@ -46,11 +51,11 @@ cityBoxes.forEach(async (box) => {
 
 document.getElementById("filter").addEventListener("input", function () {
   let query = searchField.value.toLowerCase()
-  for (box of cityBoxes) {
-    if (box.innerText.startsWith(query)) {
-      box.style.display = 'block'
+  for (city of cities) {
+    if (city.innerText.startsWith(query)) {
+      city.style.display = 'block'
     } else {
-      box.style.display = 'none'
+      city.style.display = 'none'
     }
   }
 })
