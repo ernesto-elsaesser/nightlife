@@ -17,7 +17,6 @@
 </style>
 </head>
 <body style="margin: 40px; font-size: 18px">
-<input id="filter" type="text" placeholder="Filter" />
 <a class="city" id="1850147">Tokyo</a>
 <a class="city" id="5128581">New York</a>
 <a class="city" id="5368361">Los Angeles</a>
@@ -27,6 +26,7 @@
 <a class="city" id="2643743">Lodon</a>
 <a class="city" id="1735161">Kuala Lumpur</a>
 <a class="city" id="1880252">Singapore</a>
+<a class="city" id="292223">Dubai</a>
 <a class="city" id="2925533">Frankfurt am Main</a>
 <script>
 
@@ -42,17 +42,6 @@ Array.from(cities).forEach(async (city) => {
   let south = data.bbox.south.toString()
   city.href = "map.html?city=" + data.asciiName + "&east=" + east + "&north=" + north + "&west=" + west + "&south=" + south
   city.innerHTML = '<span class="fi fi-' + cc + '"></span>' + data.name
-})
-
-document.getElementById("filter").addEventListener("input", function () {
-  let query = searchField.value.toLowerCase()
-  for (city of cities) {
-    if (city.innerText.startsWith(query)) {
-      city.style.display = 'block'
-    } else {
-      city.style.display = 'none'
-    }
-  }
 })
 </script>
 </body>
