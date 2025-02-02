@@ -40,8 +40,8 @@ Array.from(cities).forEach(async (city) => {
   let north = data.bbox.north.toString()
   let west = data.bbox.west.toString()
   let south = data.bbox.south.toString()
-  box.href = "map.html?city=" + data.asciiName + "&east=" + east + "&north=" + north + "&west=" + west + "&south=" + south
-  box.innerHTML = '<span class="fi fi-' + cc + '"></span>' + data.name
+  city.href = "map.html?city=" + data.asciiName + "&east=" + east + "&north=" + north + "&west=" + west + "&south=" + south
+  city.innerHTML = '<span class="fi fi-' + cc + '"></span>' + data.name
 })
 
 document.getElementById("filter").addEventListener("input", function () {
