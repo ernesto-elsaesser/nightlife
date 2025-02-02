@@ -1,0 +1,11 @@
+{
+    "countryCode": "DE",
+    "name": "Frankfurt am Main",
+    "population": 700000,
+    "bbox": {
+        "east": 8.80038192361686,
+        "north": 50.2271295064786,
+        "west": 8.47276066855846,
+        "south": 50.0152488338247
+    }
+}

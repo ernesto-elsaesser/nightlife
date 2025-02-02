@@ -1,0 +1,11 @@
+{
+    "countryCode": "US",
+    "name": "Portland",
+    "population": 700000,
+    "bbox": {
+        "east": -122.472021,
+        "north": 45.653272,
+        "west": -122.83675,
+        "south": 45.432393000000005
+    }
+}

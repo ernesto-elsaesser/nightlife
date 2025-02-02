@@ -1,0 +1,11 @@
+{
+    "countryCode": "DE",
+    "name": "Freiburg im Breisgau",
+    "population": 200000,
+    "bbox": {
+        "east": 7.867036516645867,
+        "north": 48.005277594122404,
+        "west": 7.836964950998306,
+        "south": 47.98989656964283
+    }
+}
