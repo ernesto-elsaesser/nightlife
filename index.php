@@ -45,12 +45,13 @@ $files = scandir("cities");
 foreach( $files as $file ) {
     $parts = explode('.', $file);
     if ($parts[1] != 'json') continue;
-    $json = file_get_contents($files);
+    $json = file_get_contents($file);
     $data = json_decode($json);
     $cc = strtolower($data['countryCode']);
+    $asciiName = $data['asciiName'];
     $name = $data['name'];
     $pop = sprintf("%.1f", $data['population'] / 1000000);
-    echo "<a class=\"citybox\" href=\"map.php?city=$slug\"><span class=\"fi fi-$cc\"></span><span class=\"name\">$name</span><span class=\"pop\">$pop</span></a>";
+    echo "<a class=\"citybox\" href=\"map.php?city=$asciiName\"><span class=\"fi fi-$cc\"></span><span class=\"name\">$name</span><span class=\"pop\">${pop}M</span></a>";
 }
 ?>
 </div>
