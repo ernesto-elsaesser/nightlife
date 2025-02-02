@@ -29,7 +29,7 @@ var mapboxMap = new mapboxgl.Map({
 
 mapboxMap.on('style.load', async function () {
 
-  let res = await fetch("hotspots/" + city + ".json")
+  let res = await fetch("spots/" + city + ".json")
   let hotspots = await res.json()
 
   mapboxMap.addSource('hotspots', {
